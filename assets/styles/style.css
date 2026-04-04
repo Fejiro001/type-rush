@@ -1,0 +1,35 @@
+@import "./reset.css";
+
+:root {
+  --max-width: 1280px;
+  --card-padding: 2rem;
+  --gap: 4rem;
+
+  --headings-font: "Orbitron", sans-serif;
+  --paragraph-font: "Inter", sans-serif;
+
+  --primary-color: #ff00ff;
+  --secondary-color: rgb(0, 243, 243);
+  --accent-color: #ffec1a;
+  --background-dark-color: #0a0a0a;
+  --text-muted-color: #838383;
+  --border-color: #505050;
+  --error-color: #ef4444;
+
+  --heading-one-size: 6.4rem;
+  --heading-two-size: 2.4rem;
+  --paragraph-size: 1.6rem;
+  --small-size: 1.4rem;
+
+  --primary-box-shadow: 0 0 20px 10px rgb(255, 0, 255, 0.25);
+  --secondary-box-shadow: 0 0 20px 10px rgb(0, 243, 243, 0.25);
+  --accent-box-shadow: 0 0 20px 10px rgb(255, 236, 26, 0.25);
+
+  --transition: all 0.3s ease-in-out;
+}
+
+.container {
+  max-width: min(100% - 30px, var(--max-width));
+  margin-inline: auto;
+}
+
