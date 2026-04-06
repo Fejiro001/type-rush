@@ -27,36 +27,42 @@
     </audio>
     <main id="app-container">
       <div id="start-screen" class="screen">
-        <h1 class="pixel" style="font-size: 3rem;">
+        <h1 class="pixel main-title">
           <span class="pink">TYPE</span><span class="cyan">RUSH</span>
         </h1>
-        <p class="pixel" style="color:var(--yellow); font-size:0.7rem; margin: 20px 0;">HOW FAST CAN YOU TYPE?</p>
-        <div style="display: flex; justify-content: center; gap: 10px;">
-          <div class="card"><h2 class="cyan pixel">99</h2><p style="font-size:0.5rem">SECONDS</p></div>
-          <div class="card"><h2 class="cyan pixel">90</h2><p style="font-size:0.5rem">WORDS</p></div>
+        <p class="pixel subtitle">HOW FAST CAN YOU TYPE?</p>
+        <div class="card-group">
+          <div class="card">
+            <h2 class="cyan pixel">99</h2>
+            <p class="card-label">SECONDS</p>
+          </div>
+          <div class="card">
+            <h2 class="cyan pixel">90</h2>
+            <p class="card-label">WORDS</p>
+          </div>
         </div>
-        <br>
         <button class="btn-yellow" id="start-btn">▶ START GAME</button>
       </div>
-      <div id="game-screen" class="screen" style="display: none;">
-        <div style="display:flex; justify-content:space-around; width: 100%; margin-bottom:40px;" class="pixel">
+      <div id="game-screen" class="screen active-game">
+        <div class="game-stats pixel">
           <p>TIME: <span id="time-left" class="cyan">99s</span></p>
           <p>POINTS: <span id="score-display" class="pink">0</span></p>
         </div>
-        <h1 id="word-display" style="font-size: 3.5rem; margin-bottom: 20px;" class="pixel">READY?</h1>
-        <input type="text" id="game-input" autocomplete="off" autofocus
-               style="background:transparent; border:2px solid var(--pink); color:white; padding:15px; font-size:2rem; text-align:center; width:60%; outline: none;">
+        <h1 id="word-display" class="pixel current-word">READY?</h1>
+        <input type="text" id="game-input" autocomplete="off" autofocus>
       </div>
-      <div id="end-screen" class="screen" style="display: none;">
-        <h1 class="pixel pink" style="font-size: 3rem;">GAME OVER</h1>
-        <div class="card" style="width: 300px; margin: 0 auto;">
-          <p class="pixel" style="font-size: 0.8rem;">FINAL SCORE</p>
+      <div id="end-screen" class="screen end-game">
+        <h1 class="pixel pink main-title">GAME OVER</h1>
+        <div class="card final-score-card">
+          <p class="pixel final-label">FINAL SCORE</p>
           <h2 id="final-score-display" class="cyan pixel">0</h2>
         </div>
-        <br>
         <button class="btn-yellow" onclick="location.reload()">↻ PLAY AGAIN</button>
       </div>
     </main>
   </body>
 </html>
 
+
+
+        
