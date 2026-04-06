@@ -3,6 +3,7 @@
 :root {
   --max-width: 1280px;
   --card-padding: 2rem;
+  --section-padding: 10rem;
   --gap: 4rem;
 
   --headings-font: "Orbitron", sans-serif;
@@ -33,3 +34,24 @@
   margin-inline: auto;
 }
 
+/* TYPING PAGE */
+section {
+  min-height: 100dvh;
+  height: 100%;
+  padding: var(--section-padding) 0;
+  background: rgba(0, 0, 0, 0.3) url(../media/images/background.jpg) no-repeat center/cover;
+  background-blend-mode: overlay;
+}
+
+.typing-section {
+  display: grid;
+  place-items: center;
+}
+
+.typing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7rem;
+}
