@@ -70,6 +70,7 @@ section {
   justify-content: space-between;
   align-items: center;
   gap: 7rem;
+  padding: var(--card-padding);
 }
 
 .typing-container {
@@ -124,10 +125,34 @@ section {
   }
 }
 
-
 .word-display {
   font-family: var(--headings-font);
-  font-size: var(--heading-one-size);
   padding: var(--gap);
   border: 2px solid var(--primary-color);
+  box-shadow: var(--primary-box-shadow);
+}
+
+.word-display p {
+  font-size: var(--heading-one-size);
+}
+
+.word-form,
+.word-form input {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid var(--secondary-color);
+}
+
+.word-form input {
+  padding: var(--card-padding);
+  text-align: center;
+  color: #ffffcc;
+}
+
+.word-form input:placeholder-shown {
+  text-transform: uppercase;
+}
+
+.word-form input:focus {
+  box-shadow: var(--secondary-box-shadow);
 }
