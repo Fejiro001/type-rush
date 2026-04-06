@@ -156,3 +156,12 @@ section {
 .word-form input:focus {
   box-shadow: var(--secondary-box-shadow);
 }
+
+/* Mobile */
+@media (max-width: 767px) {
+  .typing-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--card-padding);
+  }
+}
