@@ -17,7 +17,7 @@
   --border-color: #505050;
   --error-color: #ef4444;
 
-  --heading-one-size: 6.4rem;
+  --heading-one-size: 5.6rem;
   --heading-two-size: 2.4rem;
   --paragraph-size: 1.6rem;
   --small-size: 1.4rem;
@@ -133,7 +133,9 @@ section {
 }
 
 .word-display p {
+  font-family: var(--headings-font);
   font-size: var(--heading-one-size);
+  overflow-wrap: anywhere;
 }
 
 .word-form,
@@ -159,9 +161,19 @@ section {
 
 /* Mobile */
 @media (max-width: 767px) {
+  :root {
+    --section-padding: 8rem;
+    --gap: 3rem;
+
+    --heading-one-size: 3.6rem;
+    --heading-two-size: 2.4rem;
+    --paragraph-size: 1.6rem;
+    --small-size: 1.4rem;
+  }
+
   .typing-stats {
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--card-padding);
+    gap: var(--gap);
   }
 }
