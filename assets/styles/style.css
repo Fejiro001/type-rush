@@ -65,6 +65,7 @@ section {
 
 .typing-container,
 .typing-stats {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,10 +74,7 @@ section {
 
 .typing-container {
   flex-direction: column;
-}
-
-.typing-stats {
-  width: 100%;
+  max-width: 90rem;
 }
 
 .typing-stats li {
@@ -124,4 +122,12 @@ section {
   .current-word {
     color: var(--accent-color);
   }
+}
+
+
+.word-display {
+  font-family: var(--headings-font);
+  font-size: var(--heading-one-size);
+  padding: var(--gap);
+  border: 2px solid var(--primary-color);
 }
