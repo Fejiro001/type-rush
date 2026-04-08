@@ -119,9 +119,9 @@ const shuffle = (array) => {
 // Display word from shuffled array
 const displayWord = (word) => {
   wordDisplay.innerHTML = word
-  .split("")
-  .map((letter) => `<span>${letter}</span>`)
-  .join("");
+    .split("")
+    .map((letter) => `<span>${letter}</span>`)
+    .join("");
 };
 
 const showNextWord = () => {
@@ -131,11 +131,11 @@ const showNextWord = () => {
   currentIndex++;
 };
 
+// Timer countdown when game starts
 const displayTimeLeft = () => {
   timeCountdown.textContent = `${timeLeft}s`;
 };
 
-// Timer countdown when game starts
 const startCountdown = () => {
   timer = setInterval(() => {
     displayTimeLeft();
@@ -146,6 +146,15 @@ const startCountdown = () => {
     }
   }, 1000);
 };
+
+inputField.addEventListener("input", (e) => {
+  const letters = document.querySelectorAll(".displayed-word span");
+  const typedIndex = e.target.value.length - 1;
+
+  if (typedIndex >= 0 && e.target.value[typedIndex] === letters[typedIndex].textContent) {
+    letters[typedIndex].classList.add("correct");
+  }
+});
 
 // Start game
 const startGame = () => {
