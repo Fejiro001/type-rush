@@ -131,6 +131,11 @@ const showNextWord = () => {
   currentIndex++;
 };
 
+const incrementHits = () => {
+  points++;
+  currentPoints.textContent = points;
+};
+
 // Timer countdown when game starts
 const displayTimeLeft = () => {
   timeCountdown.textContent = `${timeLeft}s`;
@@ -155,6 +160,7 @@ const checkAllMatched = () => {
   if (Array.from(document.querySelectorAll(".displayed-word span")).every((letter) => letter.classList.contains("correct"))) {
     clearInput();
     showNextWord();
+    incrementHits();
   }
 };
 
@@ -192,6 +198,4 @@ const startGame = () => {
 
 startGame();
 
-// End game:
-// After time runs out or when all words are typed
-// Stop background music after game ends
+
