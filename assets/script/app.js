@@ -1,6 +1,12 @@
 "use strict";
 import { Score } from "./Score.js";
 
+const wordDisplay = document.querySelector(".displayed-word");
+const currentWord = document.querySelector(".current-word");
+const currentPoints = document.querySelector(".points-value");
+const timeCountdown = document.querySelector(".time-value");
+const inputField = document.querySelector(".word-input");
+
 const wordsArray = [
   "dinosaur",
   "love",
