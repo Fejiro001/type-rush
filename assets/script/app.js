@@ -100,8 +100,24 @@ const wordsArray = [
   "keyboard",
   "window"
 ];
-const backgroundMusic = new Audio("./assets/media/audio/background.wav");
-backgroundMusic.type = "audio/wav";
+
+// All Audio
+const startGameMusic = new Audio("./assets/media/audio/start-game.wav");
+startGameMusic.type = "audio/wav";
+
+const backgroundMusic = new Audio("./assets/media/audio/background.mp3");
+backgroundMusic.type = "audio/mp3";
+
+const correctMusic = new Audio("./assets/media/audio/correct.mp3");
+correctMusic.type = "audio/mp3";
+
+const errorMusic = new Audio("./assets/media/audio/error.flac");
+errorMusic.type = "audio/flac";
+
+const gameOverMusic = new Audio("./assets/media/audio/game-over.wav");
+gameOverMusic.type = "audio/wav";
+
+
 let currentIndex = 0;
 let gamePoints = 0;
 let timeLeft = 99;
@@ -171,6 +187,7 @@ const checkAllMatched = () => {
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
   if (allCorrect) {
+    correctMusic.play();
     clearInput();
     incrementPoints();
     showNextWord();
@@ -188,6 +205,7 @@ inputField.addEventListener("input", (e) => {
       letter.classList.add("correct");
       letter.classList.remove("wrong");
     } else {
+      errorMusic.play();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
     }
@@ -198,7 +216,8 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  backgroundMusic.play();
+  // backgroundMusic.play();
+  backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
   showNextWord();
@@ -223,9 +242,12 @@ const createNewScoreObject = () => {
 const endGame = () => {
   // Stop timer
   clearInterval(timer);
-
+  
   // Stop music
   backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+  
+  gameOverMusic.play();
 
   // Create and store score
   const scoreObj = createNewScoreObject();
