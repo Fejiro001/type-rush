@@ -147,6 +147,17 @@ const startCountdown = () => {
   }, 1000);
 };
 
+const clearInput = () => {
+  inputField.value = "";
+};
+
+const checkAllMatched = () => {
+  if (Array.from(document.querySelectorAll(".displayed-word span")).every((letter) => letter.classList.contains("correct"))) {
+    clearInput();
+    showNextWord();
+  }
+};
+
 inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");
   const typedIndex = e.target.value.length - 1;
@@ -156,6 +167,8 @@ inputField.addEventListener("input", (e) => {
   } else {
     letters[typedIndex].classList.add("wrong");
   }
+
+  checkAllMatched();
 });
 
 inputField.addEventListener("keydown", (e) => {
@@ -178,8 +191,6 @@ const startGame = () => {
 };
 
 startGame();
-
-// Increment hits for words gotten
 
 // End game:
 // After time runs out or when all words are typed
