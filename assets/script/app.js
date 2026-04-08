@@ -99,7 +99,8 @@ const wordsArray = [
   "keyboard",
   "window"
 ];
-
+const backgroundMusic = new Audio("./assets/media/audio/background.wav");
+backgroundMusic.type = "audio/wav";
 let randomWord = "";
 let currentIndex = 0;
 
