@@ -103,6 +103,9 @@ const backgroundMusic = new Audio("./assets/media/audio/background.wav");
 backgroundMusic.type = "audio/wav";
 let randomWord = "";
 let currentIndex = 0;
+let points = 0;
+let timeLeft = 99;
+let timer;
 
 // Shuffle function
 const shuffle = (array) => {
@@ -126,5 +129,21 @@ const showNextWord = () => {
   displayWord(wordsArray[currentIndex]);
   randomWord = wordsArray[currentIndex];
   currentIndex++;
+};
+
+const displayTimeLeft = () => {
+  timeCountdown.textContent = `${timeLeft}s`;
+};
+
+// Timer countdown when game starts
+const startCountdown = () => {
+  timer = setInterval(() => {
+    displayTimeLeft();
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
 };
 
