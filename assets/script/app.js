@@ -147,3 +147,17 @@ const startCountdown = () => {
   }, 1000);
 };
 
+// Start game
+const startGame = () => {
+  shuffle(wordsArray);
+  showNextWord();
+  startCountdown();
+};
+
+startGame();
+
+// Increment hits for words gotten
+
+// End game:
+// After time runs out or when all words are typed
+// Stop background music after game ends
