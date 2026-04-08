@@ -100,6 +100,9 @@ const wordsArray = [
   "window"
 ];
 
+let randomWord = "";
+let currentIndex = 0;
+
 // Shuffle function
 const shuffle = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -109,4 +112,18 @@ const shuffle = (array) => {
   return array;
 };
 
+// Display word from shuffled array
+const displayWord = (word) => {
+  wordDisplay.innerHTML = word
+  .split("")
+  .map((letter) => `<span>${letter}</span>`)
+  .join("");
+};
+
+const showNextWord = () => {
+  currentWord.textContent = currentIndex + 1;
+  displayWord(wordsArray[currentIndex]);
+  randomWord = wordsArray[currentIndex];
+  currentIndex++;
+};
 
