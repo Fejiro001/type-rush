@@ -151,8 +151,22 @@ inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");
   const typedIndex = e.target.value.length - 1;
 
-  if (typedIndex >= 0 && e.target.value[typedIndex] === letters[typedIndex].textContent) {
+  if (typedIndex >= 0 && e.target.value[typedIndex].toLowerCase() === letters[typedIndex].textContent) {
     letters[typedIndex].classList.add("correct");
+  } else {
+    letters[typedIndex].classList.add("wrong");
+  }
+});
+
+inputField.addEventListener("keydown", (e) => {
+  if (e.key === "Backspace") {
+    const letters = document.querySelectorAll(".displayed-word span");
+    const typedIndex = e.target.value.length - 1;
+
+    if (letters[typedIndex]) {
+      letters[typedIndex].classList.remove("correct");
+      letters[typedIndex].classList.remove("wrong");
+    }
   }
 });
 
