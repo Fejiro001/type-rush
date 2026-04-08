@@ -216,7 +216,7 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  // backgroundMusic.play();
+  backgroundMusic.play();
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
