@@ -1,6 +1,6 @@
 "use strict";
 
-class Score {
+export class Score {
   #date;
   #hits;
   #percentage;
