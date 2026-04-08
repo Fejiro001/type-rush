@@ -160,6 +160,14 @@ section {
   box-shadow: var(--secondary-box-shadow);
 }
 
+.correct {
+  color: var(--primary-color);
+}
+
+.wrong {
+  color: var(--error-color);
+}
+
 /* SCOREBOARD */
 .scoreboard-container {
   width: 100%;
