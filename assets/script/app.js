@@ -3,102 +3,12 @@ import { Score } from "./Score.js";
 
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
+const totalWords = document.querySelector(".total-words");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
 const inputField = document.querySelector(".word-input");
 
-const wordsArray = [
-  "dinosaur",
-  "love",
-  "pineapple",
-  "calendar",
-  "robot",
-  "building",
-  "population",
-  "weather",
-  "bottle",
-  "history",
-  "dream",
-  "character",
-  "money",
-  "absolute",
-  "discipline",
-  "machine",
-  "accurate",
-  "connection",
-  "rainbow",
-  "bicycle",
-  "eclipse",
-  "calculator",
-  "trouble",
-  "watermelon",
-  "developer",
-  "philosophy",
-  "database",
-  "periodic",
-  "capitalism",
-  "abominable",
-  "component",
-  "future",
-  "pasta",
-  "microwave",
-  "jungle",
-  "wallet",
-  "canada",
-  "coffee",
-  "beauty",
-  "agency",
-  "chocolate",
-  "eleven",
-  "technology",
-  "alphabet",
-  "knowledge",
-  "magician",
-  "professor",
-  "triangle",
-  "earthquake",
-  "baseball",
-  "beyond",
-  "evolution",
-  "banana",
-  "perfumer",
-  "computer",
-  "management",
-  "discovery",
-  "ambition",
-  "music",
-  "eagle",
-  "crown",
-  "chess",
-  "laptop",
-  "bedroom",
-  "delivery",
-  "enemy",
-  "button",
-  "superman",
-  "library",
-  "unboxing",
-  "bookstore",
-  "language",
-  "homework",
-  "fantastic",
-  "economy",
-  "interview",
-  "awesome",
-  "challenge",
-  "science",
-  "mystery",
-  "famous",
-  "league",
-  "memory",
-  "leather",
-  "planet",
-  "software",
-  "update",
-  "yellow",
-  "keyboard",
-  "window"
-];
+const wordsArray = ["dino", "love"];
 const backgroundMusic = new Audio("./assets/media/audio/background.wav");
 backgroundMusic.type = "audio/wav";
 let randomWord = "";
@@ -106,6 +16,8 @@ let currentIndex = 0;
 let points = 0;
 let timeLeft = 99;
 let timer;
+
+totalWords.textContent = wordsArray.length;
 
 // Shuffle function
 const shuffle = (array) => {
@@ -148,6 +60,7 @@ const startCountdown = () => {
 
     if (timeLeft < 0) {
       clearInterval(timer);
+      endGame();
     }
   }, 1000);
 };
@@ -157,36 +70,37 @@ const clearInput = () => {
 };
 
 const checkAllMatched = () => {
-  if (Array.from(document.querySelectorAll(".displayed-word span")).every((letter) => letter.classList.contains("correct"))) {
+  const letters = document.querySelectorAll(".displayed-word span");
+  const typed = inputField.value;
+
+  const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
+
+  if (allCorrect) {
     clearInput();
-    showNextWord();
     incrementHits();
+    if (currentIndex < wordsArray.length) {
+      showNextWord();
+    }
   }
 };
 
 inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");
-  const typedIndex = e.target.value.length - 1;
+  const typed = e.target.value.split("");
 
-  if (typedIndex >= 0 && e.target.value[typedIndex].toLowerCase() === letters[typedIndex].textContent) {
-    letters[typedIndex].classList.add("correct");
-  } else {
-    letters[typedIndex].classList.add("wrong");
-  }
+  letters.forEach((letter, index) => {
+    if (typed[index] === undefined) {
+      letter.classList.remove("correct", "wrong");
+    } else if (typed[index].toLowerCase() === letter.textContent.toLowerCase()) {
+      letter.classList.add("correct");
+      letter.classList.remove("wrong");
+    } else {
+      letter.classList.add("wrong");
+      letter.classList.remove("correct");
+    }
+  });
 
   checkAllMatched();
-});
-
-inputField.addEventListener("keydown", (e) => {
-  if (e.key === "Backspace") {
-    const letters = document.querySelectorAll(".displayed-word span");
-    const typedIndex = e.target.value.length - 1;
-
-    if (letters[typedIndex]) {
-      letters[typedIndex].classList.remove("correct");
-      letters[typedIndex].classList.remove("wrong");
-    }
-  }
 });
 
 // Start game
@@ -198,4 +112,8 @@ const startGame = () => {
 
 startGame();
 
+const endGame = () => {
 
+};
+
+endGame();
