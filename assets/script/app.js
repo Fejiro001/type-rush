@@ -11,11 +11,11 @@ const inputField = document.querySelector(".word-input");
 const wordsArray = ["dino", "love"];
 const backgroundMusic = new Audio("./assets/media/audio/background.wav");
 backgroundMusic.type = "audio/wav";
-let randomWord = "";
 let currentIndex = 0;
-let points = 0;
-let timeLeft = 99;
+let gamePoints = 0;
+let timeLeft = 5;
 let timer;
+const scoresArray = [];
 
 totalWords.textContent = wordsArray.length;
 
@@ -37,15 +37,19 @@ const displayWord = (word) => {
 };
 
 const showNextWord = () => {
+  if (currentIndex >= wordsArray.length) {
+    endGame();
+    return;
+  }
+
   currentWord.textContent = currentIndex + 1;
   displayWord(wordsArray[currentIndex]);
-  randomWord = wordsArray[currentIndex];
   currentIndex++;
 };
 
-const incrementHits = () => {
-  points++;
-  currentPoints.textContent = points;
+const incrementPoints = () => {
+  gamePoints++;
+  currentPoints.textContent = gamePoints;
 };
 
 // Timer countdown when game starts
@@ -77,10 +81,10 @@ const checkAllMatched = () => {
 
   if (allCorrect) {
     clearInput();
-    incrementHits();
-    if (currentIndex < wordsArray.length) {
-      showNextWord();
-    }
+    incrementPoints();
+    showNextWord();
+    // if (currentIndex < wordsArray.length) {
+    // }
   }
 };
 
@@ -112,8 +116,21 @@ const startGame = () => {
 
 startGame();
 
-const endGame = () => {
+const createNewScoreObject = () => {
+  const date = new Date();
+  date.toLocaleDateString("en-ca", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 
+  let userAccuracy = (gamePoints / wordsArray.length) * 100;
+
+  const score = new Score(date, gamePoints, userAccuracy);
+  return score;
 };
 
-endGame();
+const endGame = () => {
+  const scoreObj = createNewScoreObject();
+  scoresArray.push(scoreObj);
+};

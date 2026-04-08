@@ -2,20 +2,20 @@
 
 export class Score {
   #date;
-  #hits;
+  #points;
   #percentage;
 
-  constructor(date, hits, percentage) {
+  constructor(date, points, percentage) {
     this.date = date;
-    this.hits = hits;
+    this.points = points;
     this.percentage = percentage;
   }
 
   set date(date) {this.#date = date;}
-  set hits(hits) {this.#hits = hits;}
+  set points(points) {this.#points = points;}
   set percentage(percentage) {this.#percentage = percentage;}
 
   get date() {return this.#date;}
-  get hits() {return this.#hits;}
+  get points() {return this.#points;}
   get percentage() {return this.#percentage;}
 }
