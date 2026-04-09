@@ -22,3 +22,8 @@ startBtn.addEventListener('click', () => {
     // 2. Switch to Typing Screen (Assumes you have a div with id="typing-screen")
     showScreen('typing-screen'); 
 });
+
+// Link Restart Button (Task: New game without reload)
+restartBtn.addEventListener('click', () => {
+    showScreen('start-screen');
+});
