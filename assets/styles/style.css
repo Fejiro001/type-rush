@@ -278,4 +278,23 @@ p, span, input {
   font-size: 0.6rem; 
   letter-spacing: 1px; 
 }
+/* --- 6. END PAGE: HIGH SCORE BOX (CENTERED) --- */
+.high-score-box {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--secondary-color);
+    padding: 30px 50px;
+    width: 100%;
+    max-width: 550px;
+    background: rgba(0, 0, 0, 0.85);
+    margin: 0 auto 30px auto; /* auto centers the box itself */
+    box-shadow: var(--secondary-box-shadow);
+}
 
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
