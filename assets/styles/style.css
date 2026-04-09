@@ -298,3 +298,43 @@ p, span, input {
     font-size: 0.8rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+/* --- 7. LARGE ARCADE BUTTONS --- */
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.btn-yellow, .btn-outline-yellow {
+    width: auto; 
+    flex: 0 1 auto; 
+    white-space: nowrap;
+    font-size: 1rem;
+    padding: 22px 40px; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+}
+
+.btn-yellow {
+    background: var(--accent-color);
+    color: black;
+    border: none;
+    box-shadow: var(--arcade-shadow);
+}
+
+.btn-yellow:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #998c00;
+}
+
+.btn-outline-yellow {
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
