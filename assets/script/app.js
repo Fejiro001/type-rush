@@ -266,3 +266,13 @@ function showScreen(screenId) {
     // Show requested screen
     document.getElementById(screenId).classList.add('active');
 }
+
+// Link Start Button
+startBtn.addEventListener('click', () => {
+    // 1. Call your partner's game logic function
+    if (typeof startNewGame === "function") {
+        startNewGame();
+    }
+    // 2. Switch to Typing Screen (Assumes you have a div with id="typing-screen")
+    showScreen('typing-screen'); 
+});
