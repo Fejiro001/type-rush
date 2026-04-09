@@ -338,3 +338,10 @@ p, span, input {
     color: var(--accent-color);
     border: 2px solid var(--accent-color);
 }
+
+/* --- 8. FOOTER SPACING --- */
+.footer-text {
+    margin-top: 40px;
+    letter-spacing: 4px;
+    opacity: 0.8;
+}
