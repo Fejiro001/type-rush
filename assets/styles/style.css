@@ -202,7 +202,6 @@ section {
 }
 
 .game-section,
-.scoreboard-section,
 .scoreboard-container {
   display: grid;
   place-items: center;
