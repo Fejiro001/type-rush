@@ -11,6 +11,7 @@ const startWords = document.querySelector(".start-words");
 const totalTime = document.querySelector(".total-time");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
+const form = document.querySelector(".word-form");
 const inputField = document.querySelector(".word-input");
 const startBtn = document.getElementById("start-btn");
 const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
@@ -137,6 +138,15 @@ const scoresArray = [];
 totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
 
+// Prevent copy and paste
+wordDisplay.addEventListener("copy", (e) => {
+  e.preventDefault();
+});
+
+inputField.addEventListener("paste", (e) => {
+  e.preventDefault()
+})
+
 // Shuffle function
 const shuffle = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -235,6 +245,10 @@ const playErrorSound = () => {
     canPlayError = true;
   }, 120);
 };
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
 
 inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");

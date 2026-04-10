@@ -32,6 +32,10 @@
   --secondary-glow: 0 0 10px #00f3f3;
 }
 
+body::selection {
+  background-color: rgba(255, 0, 255, 0.4);
+}
+
 h1,
 h2,
 h3,
@@ -72,6 +76,7 @@ body {
   color: var(--primary-color);
   text-shadow: var(--primary-glow);
 }
+
 .cyan {
   color: var(--secondary-color);
   text-shadow: var(--secondary-glow);
