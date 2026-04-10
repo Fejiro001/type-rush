@@ -126,8 +126,13 @@ body {
   gap: 2rem;
   font-size: var(--paragraph-size);
   text-transform: uppercase;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   box-shadow: 0 6px 0 #776d01;
+}
+
+.btn-yellow:hover,
+.btn-outline-yellow:hover {
+  transform: translateY(-5px);
 }
 
 .btn-yellow {
