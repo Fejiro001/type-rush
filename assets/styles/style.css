@@ -117,8 +117,8 @@ body {
   margin-top: 2rem;
 }
 
-.btn-yellow,
-.btn-outline-yellow {
+.primary-btn,
+.secondary-btn {
   padding: var(--card-padding) var(--gap);
   cursor: pointer;
   display: flex;
@@ -130,24 +130,24 @@ body {
   box-shadow: 0 6px 0 #776d01;
 }
 
-.btn-yellow:hover,
-.btn-outline-yellow:hover {
+.primary-btn:hover,
+.secondary-btn:hover {
   transform: translateY(-5px);
 }
 
-.btn-yellow {
+.primary-btn {
   background: var(--accent-color);
   color: var(--background-dark-color);
 }
 
-.btn-outline-yellow {
+.secondary-btn {
   background: transparent;
   color: var(--accent-color);
   border: 2px solid var(--accent-color);
 }
 
-.btn-yellow:active,
-.btn-outline-yellow:active {
+.primary-btn:active,
+.secondary-btn:active {
   transform: translateY(5px);
 }
 
@@ -207,13 +207,37 @@ body {
   color: var(--secondary-color);
 }
 
-/* TYPING SCREEN */
 section {
   min-height: 100dvh;
   height: 100%;
   padding: var(--section-padding) 0;
   background: rgba(0, 0, 0, 0.3) url(../media/images/background.jpg) no-repeat center/cover;
   background-blend-mode: overlay;
+}
+
+/* TYPING SCREEN */
+#return-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-transform: uppercase;
+  font-size: var(--small-size);
+  background: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 1.2rem;
+  transition: var(--transition);
+}
+
+#return-btn span {
+  font-family: var(--headings-font);
+  line-height: 1rem;
+}
+
+#return-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--background-dark-color);
 }
 
 .game-section {

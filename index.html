@@ -24,7 +24,7 @@
   <body>
     <main>
       <section class="game-section">
-        <div id="start-screen" class="screen active container game-container">
+        <article id="start-screen" class="screen active container game-container">
           <h1 class="main-title"><span class="pink">Type</span><span class="cyan">rush</span></h1>
           <p class="subtitle">How fast can you type?</p>
           <ul class="card-group">
@@ -38,16 +38,16 @@
             </li>
           </ul>
           <div class="button-group">
-            <button class="btn-yellow" id="start-btn"><i class="fa-solid fa-play"></i>Start game</button>
-            <button class="btn-outline-yellow scoreboard-btn"><i class="fa-solid fa-gamepad"></i>Scoreboard</button>
+            <button class="primary-btn" id="start-btn"><i class="fa-solid fa-play"></i>Start game</button>
+            <button class="secondary-btn scoreboard-btn"><i class="fa-solid fa-gamepad"></i>Scoreboard</button>
           </div>
           <div class="instruction-text">
             <span class="arrows">▶</span>
             <p>Press play to start</p>
             <span class="arrows">◀</span>
           </div>
-        </div>
-        <div id="typing-screen" class="screen container typing-container">
+        </article>
+        <article id="typing-screen" class="screen container typing-container">
           <ul class="typing-stats">
             <li class="time">
               <p class="time-label">Time</p>
@@ -68,8 +68,8 @@
           <form class="word-form">
             <input class="word-input" type="text" placeholder="Start typing..." autofocus />
           </form>
-        </div>
-        <div id="end-screen" class="screen container game-container">
+        </article>
+        <article id="end-screen" class="screen container game-container">
           <h1 class="pink main-title">
             Game<span class="cyan"><br />over</span>
           </h1>
@@ -96,11 +96,15 @@
             </ul>
           </div>
           <div class="button-group">
-            <button class="btn-yellow" id="restart-btn"><i class="fa-solid fa-arrows-rotate"></i>Play again</button>
-            <button class="btn-outline-yellow scoreboard-btn"><i class="fa-solid fa-gamepad"></i>Scoreboard</button>
+            <button class="primary-btn" id="restart-btn"><i class="fa-solid fa-arrows-rotate"></i>Play again</button>
+            <button class="secondary-btn scoreboard-btn"><i class="fa-solid fa-gamepad"></i>Scoreboard</button>
           </div>
-        </div>
-        <div id="scoreboard-screen" class="screen container typing-container">
+        </article>
+        <article id="scoreboard-screen" class="screen container typing-container">
+          <button id="return-btn">
+            <i class="fa-regular fa-hand-point-left"></i>
+            <span>Return Home</span>
+          </button>
           <h1 class="main-title pink">
             Score<span class="cyan"><br />board</span>
           </h1>
@@ -118,7 +122,7 @@
               <tbody class="score-table-body"></tbody>
             </table>
           </div>
-        </div>
+        </article>
       </section>
     </main>
   </body>
