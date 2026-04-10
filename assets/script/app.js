@@ -11,6 +11,7 @@ const startWords = document.querySelector(".start-words");
 const totalTime = document.querySelector(".total-time");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
+const form = document.querySelector(".word-form");
 const inputField = document.querySelector(".word-input");
 const startBtn = document.getElementById("start-btn");
 const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
@@ -137,9 +138,14 @@ const scoresArray = [];
 totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
 
+// Prevent copy and paste
+wordDisplay.addEventListener("copy", (e) => e.preventDefault());
+
+inputField.addEventListener("paste", (e) => e.preventDefault());
+
 // Shuffle function
 const shuffle = (array) => {
-  for (let i = 0; i < array.length; i++) {
+  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
@@ -210,7 +216,7 @@ const animate = (element, className, duration) => {
 
 const checkAllMatched = () => {
   const letters = document.querySelectorAll(".displayed-word span");
-  const typed = inputField.value;
+  const typed = inputField.value.trim();
 
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
@@ -236,9 +242,13 @@ const playErrorSound = () => {
   }, 120);
 };
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
 inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");
-  const typed = e.target.value.split("");
+  const typed = e.target.value.trim().split("");
 
   letters.forEach((letter, index) => {
     if (typed[index] === undefined) {
@@ -259,7 +269,8 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  playSound(backgroundMusic);
+  backgroundMusic.currentTime = 0;
+  backgroundMusic.play();
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
@@ -274,7 +285,7 @@ const createNewScoreObject = () => {
     year: "numeric"
   });
 
-  let userAccuracy = (gamePoints / wordsArray.length) * 100;
+  let userAccuracy = currentIndex === 0 ? 0 : (gamePoints / currentIndex) * 100;
   userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
@@ -290,10 +301,9 @@ const displayGameStats = (score) => {
 };
 
 const endGame = () => {
-  // Stop timer
   clearInterval(timer);
+  inputField.disabled = true;
 
-  // Stop music
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
 
@@ -330,6 +340,9 @@ function showScreen(screenName) {
 }
 
 const resetGame = () => {
+  inputField.disabled = false;
+  clearInterval(timer);
+
   currentIndex = 0;
   gamePoints = 0;
   timeLeft = GAME_TIME;

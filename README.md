@@ -6,18 +6,30 @@
 - Roopjeet Kaur
 
 ## Description
-TypeRush is a fast-paced typing game designed to improve typing speed and accuracy in a fun and interactive way.
-This project was developed as part of an Object-Oriented JavaScript course. It uses JavaScript classes to manage game logic, timers, and user interactions, along with a modern neon dark theme for a better user experience.
+
+**TypeRush** is a fast-paced typing game designed to improve typing speed, accuracy, and focus in a fun and interactive environment. The interface features an **arcade-inspired** design, giving the game a retro feel while enhancing user engagement.
+
+Developed as part of an Object-Oriented JavaScript course, TypeRush showcases clean architecture, real-time UI updates, modular JavaScript, and interactive gameplay.
 
 ## Features
 
-- Responsive design optimized for desktop, tablet, and mobile devices.
-- 99-second timer challenge  
-- Real-time typing accuracy tracking  
-- Smooth transitions between start, game, and result screens  
-- Sound effects and background music  
-- Responsive design for desktop, tablet, and mobile  
+- 99‑second timed challenge
+- Real‑time typing accuracy tracking
+- Randomized word generation
+- Restart game functionality
+- Game statistics and performance metrics
+- Sound effects and background music
+- Fully responsive design (desktop, tablet, mobile)
+- Modern neon dark theme
+- Smooth transitions between game screens
+- Scoreboard to track previous results
 
+## Game Screens
+
+- Start Game Screen
+- Typing Screen
+- End Game Screen
+- Scoreboard Screen
 
 ## Technologies Used
 
@@ -27,6 +39,15 @@ This project was developed as part of an Object-Oriented JavaScript course. It u
 - CSS
 - JavaScript
 
+### Concepts Applied
+
+- Object‑Oriented Programming (OOP)
+- DOM Manipulation
+- Event Handling
+- Timer Functions
+- Array Manipulation
+- Modular JavaScript
+
 ### Tools/Services
 
 - VS Code
@@ -34,30 +55,102 @@ This project was developed as part of an Object-Oriented JavaScript course. It u
 
 ## Key Implementation Details
 
-## 🔑 Key Implementation Details
-- **Class-Based Structure:** The game is built using JavaScript classes (such as Game, Timer, and UI) to keep the code organized and reusable.
+### Class‑Based Architecture
 
-- **State Management:** Different game states (start screen, playing, and results) are handled efficiently to ensure smooth transitions.
+The application uses JavaScript classes (such as Score) to organize logic and maintain clean, reusable code.
 
-- **Real-Time DOM Updates:** The interface updates instantly as the user types, without reloading the page.
+### Real‑Time Typing Validation
 
-- **Keyboard Event Handling:** Captures user keystrokes to compare input with the given text and calculate accuracy.
+Each letter is validated as the user types, providing instant feedback using color indicators and animations.
 
-- **Timer Logic:** A countdown timer controls the game duration and triggers the result screen when time ends.
+```js
+inputField.addEventListener("input", (e) => {
+  const letters = document.querySelectorAll(".displayed-word span");
+  const typed = e.target.value.trim().split("");
 
-- **Accuracy Calculation:** Compares typed text with the original text to calculate typing accuracy in real time.
+  letters.forEach((letter, index) => {
+    if (typed[index] === undefined) {
+      letter.classList.remove("correct", "wrong");
+    } else if (typed[index].toLowerCase() === letter.textContent.toLowerCase()) {
+      letter.classList.add("correct");
+      letter.classList.remove("wrong");
+    } else {
+      playErrorSound();
+      letter.classList.add("wrong");
+      letter.classList.remove("correct");
+      animate(wordDisplayContainer, "input-error", 300);
+    }
+  });
 
-- **Responsive Layout:** Uses CSS Flexbox and media queries to adapt the game to different screen sizes.
+  checkAllMatched();
+});
+```
 
-- **Audio Integration:** Background music and sound effects are added for a better user experience.
+### Word Randomization
+
+Words are shuffled using the Fisher‑Yates Shuffle Algorithm to ensure a different experience every game.
+
+### Timer Logic
+
+A 99‑second countdown timer controls the game session and automatically ends the game when time expires.
+
+```js
+const startCountdown = () => {
+  displayTimeLeft();
+
+  timer = setInterval(() => {
+    timeLeft--;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      timeCountdown.textContent = "0s";
+      endGame();
+      return;
+    }
+    displayTimeLeft();
+  }, 1000);
+};
+```
+
+### Accuracy Calculation
+
+Accuracy is calculated based on correctly typed words and displayed as part of the final statistics.
+
+### Performance Metrics
+
+Users receive:
+
+- Total points
+- Accuracy percentage
+- Average time per word
+
+### Audio Integration
+
+Sound effects include:
+
+- Start game sound
+- Correct word sound
+- Error sound
+- Game over sound
+- Background music
+
+### Screen State Management
+
+Different screens are managed dynamically:
+
+- Start Game Screen
+- Typing Screen
+- End Game Screen
+- Scoreboard Screen
 
 ## Collaboration & Version Control
 
-- Worked as a team using GitHub  
-- Used branches for different features  
-- Managed and resolved merge conflicts  
-- Combined UI design and functionality  
+This project was developed collaboratively using GitHub:
 
+- Feature branches for development
+- Pull requests for merging
+- Conflict resolution
+- Shared responsibilities for UI and functionality
 
 ## Demo
 
