@@ -201,6 +201,13 @@ const clearInput = () => {
   inputField.value = "";
 };
 
+const animate = (element, className, duration) => {
+  element.classList.add(className);
+  setTimeout(() => {
+    element.classList.remove(className);
+  }, duration);
+};
+
 const checkAllMatched = () => {
   const letters = document.querySelectorAll(".displayed-word span");
   const typed = inputField.value;
@@ -209,6 +216,7 @@ const checkAllMatched = () => {
 
   if (allCorrect) {
     playSound(correctMusic);
+    animate(wordDisplayContainer, "next-word", 250);
     clearInput();
     incrementPoints();
     showNextWord();
@@ -245,10 +253,7 @@ inputField.addEventListener("input", (e) => {
       playErrorSound();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
-      wordDisplayContainer.classList.add("input-error");
-      setTimeout(() => {
-        wordDisplayContainer.classList.remove("input-error");
-      }, 300);
+      animate(wordDisplayContainer, "input-error", 300);
     }
   });
 
