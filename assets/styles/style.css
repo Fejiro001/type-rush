@@ -28,8 +28,8 @@
 
   --transition: all 0.3s ease-in-out;
 
-  --primary-glow: 0 0 20px #ff00ff;
-  --secondary-glow: 0 0 15px #00f3f3;
+  --primary-glow: 0 0 10px #ff00ff;
+  --secondary-glow: 0 0 10px #00f3f3;
 }
 
 h1,
@@ -56,13 +56,11 @@ input {
   align-items: center;
   justify-content: center;
   text-align: center;
+  gap: var(--gap);
 }
 
 .main-title {
-  font-size: 4.5rem;
-  letter-spacing: 8px;
-  line-height: 1.1;
-  margin-bottom: 20px;
+  font-size: var(--heading-one-size);
 }
 
 .pink {
@@ -74,15 +72,14 @@ input {
   text-shadow: var(--secondary-glow);
 }
 
-.subtitle-yellow {
+.subtitle {
   color: var(--accent-color);
-  font-size: 0.8rem;
-  margin-bottom: 40px;
-  letter-spacing: 2px;
+  font-size: var(--paragraph-size);
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
-/* --- 5. START PAGE: SMALL STAT BOXES --- */
 .card-group {
   display: flex;
   flex-direction: row;
