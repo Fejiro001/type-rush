@@ -220,7 +220,7 @@ const animate = (element, className, duration) => {
 
 const checkAllMatched = () => {
   const letters = document.querySelectorAll(".displayed-word span");
-  const typed = inputField.value;
+  const typed = inputField.value.trim();
 
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
@@ -252,7 +252,7 @@ form.addEventListener("submit", (e) => {
 
 inputField.addEventListener("input", (e) => {
   const letters = document.querySelectorAll(".displayed-word span");
-  const typed = e.target.value.split("");
+  const typed = e.target.value.trim().split("");
 
   letters.forEach((letter, index) => {
     if (typed[index] === undefined) {
