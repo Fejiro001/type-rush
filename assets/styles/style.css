@@ -365,15 +365,24 @@ td:nth-child(4) {
 }
 
 /* Mobile */
+/* Mobile */
 @media (max-width: 767px) {
   :root {
     --section-padding: 8rem;
     --gap: 3rem;
 
     --heading-one-size: 3.6rem;
-    --heading-two-size: 2.4rem;
-    --paragraph-size: 1.6rem;
-    --small-size: 1.4rem;
+    --heading-two-size: 1.8rem;
+    --paragraph-size: 1.4rem;
+  }
+
+  .card-group {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .button-group {
+    flex-direction: column;
   }
 
   .typing-stats {
