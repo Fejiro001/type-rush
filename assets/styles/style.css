@@ -214,7 +214,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 7rem;
+  gap: var(--gap);
   padding: var(--card-padding);
 }
 
