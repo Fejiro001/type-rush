@@ -50,7 +50,7 @@ input {
 }
 
 /* START SCREEN */
-.start-container {
+.game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,6 +148,7 @@ input {
   align-items: start;
   justify-content: center;
   gap: 2rem;
+  text-transform: uppercase;
 
   p,
   span {
@@ -158,7 +159,6 @@ input {
 
 .instruction-text {
   justify-content: space-between;
-  text-transform: uppercase;
   margin-top: 2rem;
 }
 
@@ -201,8 +201,7 @@ section {
   background-blend-mode: overlay;
 }
 
-.game-section,
-.scoreboard-container {
+.game-section {
   display: grid;
   place-items: center;
   color: var(--text-muted-color);
@@ -215,7 +214,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 7rem;
+  gap: var(--gap);
   padding: var(--card-padding);
 }
 
@@ -294,6 +293,7 @@ section {
 .word-form input {
   padding: var(--card-padding);
   text-align: center;
+  font-size: var(--heading-two-size);
   color: #ffffcc;
 }
 
@@ -314,11 +314,6 @@ section {
 }
 
 /* SCOREBOARD */
-.scoreboard-container {
-  width: 100%;
-  gap: var(--gap);
-}
-
 .page-description,
 .page-name {
   text-transform: uppercase;
@@ -359,6 +354,14 @@ td:nth-child(3) {
 th:nth-child(4),
 td:nth-child(4) {
   color: var(--primary-color);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: flex;
 }
 
 /* Mobile */

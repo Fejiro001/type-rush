@@ -1,16 +1,21 @@
 "use strict";
 import { Score } from "./Score.js";
 
+const GAME_TIME = 99;
+
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
 const totalWords = document.querySelector(".total-words");
+const startWords = document.querySelector(".start-words");
+const totalTime = document.querySelector(".total-time");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
 const inputField = document.querySelector(".word-input");
-const startScreen = document.getElementById("start-screen");
-const endScreen = document.getElementById("end-screen");
 const startBtn = document.getElementById("start-btn");
+const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
 const restartBtn = document.getElementById("restart-btn");
+const gameStats = document.querySelectorAll(".stat-row");
+const scoreBoard = document.querySelector(".score-table-body");
 
 const wordsArray = [
   "dinosaur",
@@ -121,14 +126,14 @@ errorMusic.type = "audio/flac";
 const gameOverMusic = new Audio("./assets/media/audio/game-over.wav");
 gameOverMusic.type = "audio/wav";
 
-
 let currentIndex = 0;
 let gamePoints = 0;
-let timeLeft = 99;
+let timeLeft = GAME_TIME;
 let timer;
 const scoresArray = [];
 
-totalWords.textContent = wordsArray.length;
+totalWords.textContent = startWords.textContent = wordsArray.length;
+totalTime.textContent = GAME_TIME;
 
 // Shuffle function
 const shuffle = (array) => {
@@ -169,15 +174,25 @@ const displayTimeLeft = () => {
 };
 
 const startCountdown = () => {
+  displayTimeLeft();
+
   timer = setInterval(() => {
-    displayTimeLeft();
     timeLeft--;
 
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
       clearInterval(timer);
+      timeCountdown.textContent = "0s";
       endGame();
+      return;
     }
+    displayTimeLeft();
   }, 1000);
+};
+
+const playSound = (audio) => {
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
 };
 
 const clearInput = () => {
@@ -191,11 +206,27 @@ const checkAllMatched = () => {
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
   if (allCorrect) {
-    correctMusic.play();
+    playSound(correctMusic);
     clearInput();
     incrementPoints();
     showNextWord();
   }
+};
+
+let canPlayError = true;
+
+const playErrorSound = () => {
+  if (!canPlayError) return;
+
+  canPlayError = false;
+
+  errorMusic.pause();
+  errorMusic.currentTime = 0;
+  errorMusic.play();
+
+  setTimeout(() => {
+    canPlayError = true;
+  }, 150);
 };
 
 inputField.addEventListener("input", (e) => {
@@ -209,7 +240,7 @@ inputField.addEventListener("input", (e) => {
       letter.classList.add("correct");
       letter.classList.remove("wrong");
     } else {
-      errorMusic.play();
+      playErrorSound();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
     }
@@ -220,15 +251,13 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  backgroundMusic.play();
+  playSound(backgroundMusic);
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
   showNextWord();
   startCountdown();
 };
-
-startGame();
 
 const createNewScoreObject = () => {
   const date = new Date().toLocaleDateString("en-ca", {
@@ -238,42 +267,91 @@ const createNewScoreObject = () => {
   });
 
   let userAccuracy = (gamePoints / wordsArray.length) * 100;
+  userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
   return score;
 };
 
+const displayGameStats = (score) => {
+  gameStats[0].children[1].textContent = score.points;
+  gameStats[1].children[1].textContent = `${score.percentage}%`;
+
+  const avgPerWord = gamePoints === 0 ? 0 : (GAME_TIME / gamePoints).toFixed(1);
+  gameStats[2].children[1].textContent = `${avgPerWord}s`;
+};
+
 const endGame = () => {
   // Stop timer
   clearInterval(timer);
-  
+
   // Stop music
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
-  
+
   gameOverMusic.play();
 
   // Create and store score
   const scoreObj = createNewScoreObject();
+  displayGameStats(scoreObj);
   scoresArray.push(scoreObj);
+
+  showScreen("end-screen");
 };
 
-// Function to switch screens
-function showScreen(screenId) {
-    // Hide all screens
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    // Show requested screen
-    document.getElementById(screenId).classList.add('active');
+const populateScoreBoard = () => {
+  scoreBoard.replaceChildren();
+
+  scoresArray.forEach((score, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${score.points}</td>
+        <td>${score.percentage}%</td>
+        <td>${score.date}</td>
+      `;
+
+    scoreBoard.appendChild(row);
+  });
+};
+
+function showScreen(screenName) {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  document.getElementById(screenName).classList.add("active");
 }
 
-// Link Start Button
-startBtn.addEventListener('click', () => {
-    if (typeof startNewGame === "function") {
-        startNewGame();
-    }
-    showScreen('typing-screen'); 
+const resetGame = () => {
+  currentIndex = 0;
+  gamePoints = 0;
+  timeLeft = GAME_TIME;
+
+  currentPoints.textContent = 0;
+  inputField.value = "";
+  wordDisplay.innerHTML = "";
+  timeCountdown.textContent = `${GAME_TIME}s`;
+};
+
+const focusInput = () => {
+  setTimeout(() => inputField.focus(), 0);
+};
+
+startBtn.addEventListener("click", () => {
+  startGameMusic.play();
+  showScreen("typing-screen");
+  resetGame();
+  focusInput();
+  startGame();
 });
 
-restartBtn.addEventListener('click', () => {
-    showScreen('start-screen');
+scoreboardBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    showScreen("scoreboard-screen");
+    populateScoreBoard();
+  });
+});
+
+restartBtn.addEventListener("click", () => {
+  resetGame();
+  showScreen("start-screen");
 });
