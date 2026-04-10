@@ -3,6 +3,7 @@ import { Score } from "./Score.js";
 
 const GAME_TIME = 99;
 
+const wordDisplayContainer = document.querySelector(".word-display");
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
 const totalWords = document.querySelector(".total-words");
@@ -145,7 +146,7 @@ const shuffle = (array) => {
   return array;
 };
 
-// Display word from shuffled array
+// Display word from shuffled words array
 const displayWord = (word) => {
   wordDisplay.innerHTML = word
     .split("")
@@ -200,6 +201,13 @@ const clearInput = () => {
   inputField.value = "";
 };
 
+const animate = (element, className, duration) => {
+  element.classList.add(className);
+  setTimeout(() => {
+    element.classList.remove(className);
+  }, duration);
+};
+
 const checkAllMatched = () => {
   const letters = document.querySelectorAll(".displayed-word span");
   const typed = inputField.value;
@@ -207,8 +215,9 @@ const checkAllMatched = () => {
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
   if (allCorrect) {
-    playSound(correctMusic);
     clearInput();
+    playSound(correctMusic);
+    animate(wordDisplayContainer, "next-word", 250);
     incrementPoints();
     showNextWord();
   }
@@ -220,14 +229,11 @@ const playErrorSound = () => {
   if (!canPlayError) return;
 
   canPlayError = false;
-
-  errorMusic.pause();
-  errorMusic.currentTime = 0;
-  errorMusic.play();
+  playSound(errorMusic);
 
   setTimeout(() => {
     canPlayError = true;
-  }, 150);
+  }, 120);
 };
 
 inputField.addEventListener("input", (e) => {
@@ -244,6 +250,7 @@ inputField.addEventListener("input", (e) => {
       playErrorSound();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
+      animate(wordDisplayContainer, "input-error", 300);
     }
   });
 

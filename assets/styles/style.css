@@ -317,6 +317,14 @@ section {
   box-shadow: var(--primary-box-shadow);
 }
 
+.next-word {
+  animation: nextWord 0.25s ease;
+}
+
+.input-error {
+  animation: error 0.3s ease;
+}
+
 .word-display p {
   font-family: var(--headings-font);
   font-size: var(--heading-one-size);
@@ -412,6 +420,43 @@ td:nth-child(4) {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes nextWord {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(8px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes error {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
