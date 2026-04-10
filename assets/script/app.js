@@ -160,9 +160,9 @@ const showNextWord = () => {
     return;
   }
 
-  currentWord.textContent = currentIndex + 1;
-  displayWord(wordsArray[currentIndex]);
   currentIndex++;
+  currentWord.textContent = currentIndex;
+  displayWord(wordsArray[currentIndex - 1]);
 };
 
 const incrementPoints = () => {
@@ -361,7 +361,9 @@ scoreboardBtn.forEach((btn) => {
 
 restartBtn.addEventListener("click", () => {
   resetGame();
-  showScreen("start-screen");
+  showScreen("typing-screen");
+  focusInput();
+  startGame();
 });
 
 returnBtn.addEventListener("click", () => {
