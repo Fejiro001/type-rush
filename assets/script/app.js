@@ -139,13 +139,9 @@ totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
 
 // Prevent copy and paste
-wordDisplay.addEventListener("copy", (e) => {
-  e.preventDefault();
-});
+wordDisplay.addEventListener("copy", (e) => e.preventDefault());
 
-inputField.addEventListener("paste", (e) => {
-  e.preventDefault()
-})
+inputField.addEventListener("paste", (e) => e.preventDefault());
 
 // Shuffle function
 const shuffle = (array) => {
@@ -288,7 +284,7 @@ const createNewScoreObject = () => {
     year: "numeric"
   });
 
-  let userAccuracy = (gamePoints / wordsArray.length) * 100;
+  let userAccuracy = (gamePoints / currentIndex) * 100;
   userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
