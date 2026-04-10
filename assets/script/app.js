@@ -1,7 +1,7 @@
 "use strict";
 import { Score } from "./Score.js";
 
-const GAME_TIME = 99;
+const GAME_TIME = 10;
 
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
@@ -11,9 +11,10 @@ const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
 const inputField = document.querySelector(".word-input");
 const startBtn = document.getElementById("start-btn");
-const scoreboardBtn = document.getElementById("scoreboard-btn");
+const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
 const restartBtn = document.getElementById("restart-btn");
 const gameStats = document.querySelectorAll(".stat-row");
+const scoreBoard = document.querySelector(".score-table-body");
 
 const wordsArray = [
   "dinosaur",
@@ -275,7 +276,20 @@ const endGame = () => {
   showScreen("end-screen");
 };
 
-// Function to switch screens
+const populateScoreBoard = () => {
+  console.log(scoresArray);
+  if (scoresArray) {
+    scoresArray.forEach((score, index) => {
+      scoreBoard.innerHTML = `<tr>
+        <td>${index + 1}</td>
+        <td>${score.points}</td>
+        <td>${score.percentage}%</td>
+        <td>${score.date}</td>
+      </tr>`;
+    });
+  }
+};
+
 function showScreen(screenName) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
   document.getElementById(screenName).classList.add("active");
@@ -288,8 +302,11 @@ startBtn.addEventListener("click", () => {
   startGame();
 });
 
-scoreboardBtn.addEventListener("click", () => {
-  showScreen("scoreboard-screen");
+scoreboardBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    showScreen("scoreboard-screen");
+    populateScoreBoard();
+  });
 });
 
 restartBtn.addEventListener("click", () => {
