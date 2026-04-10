@@ -188,6 +188,12 @@ const startCountdown = () => {
   }, 1000);
 };
 
+const playSound = (audio) => {
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
+};
+
 const clearInput = () => {
   inputField.value = "";
 };
@@ -199,11 +205,27 @@ const checkAllMatched = () => {
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
   if (allCorrect) {
-    correctMusic.play();
+    playSound(correctMusic);
     clearInput();
     incrementPoints();
     showNextWord();
   }
+};
+
+let canPlayError = true;
+
+const playErrorSound = () => {
+  if (!canPlayError) return;
+
+  canPlayError = false;
+
+  errorMusic.pause();
+  errorMusic.currentTime = 0;
+  errorMusic.play();
+
+  setTimeout(() => {
+    canPlayError = true;
+  }, 150);
 };
 
 inputField.addEventListener("input", (e) => {
@@ -217,7 +239,7 @@ inputField.addEventListener("input", (e) => {
       letter.classList.add("correct");
       letter.classList.remove("wrong");
     } else {
-      errorMusic.play();
+      playErrorSound();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
     }
@@ -228,7 +250,7 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  backgroundMusic.play();
+  playSound(backgroundMusic);
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
@@ -254,7 +276,7 @@ const displayGameStats = (score) => {
   gameStats[0].children[1].textContent = score.points;
   gameStats[1].children[1].textContent = `${score.percentage}%`;
 
-  const avgPerWord = (GAME_TIME / gamePoints).toFixed(1);
+  const avgPerWord = gamePoints === 0 ? 0 : (GAME_TIME / gamePoints).toFixed(1);
   gameStats[2].children[1].textContent = `${avgPerWord}s`;
 };
 
@@ -277,15 +299,19 @@ const endGame = () => {
 };
 
 const populateScoreBoard = () => {
-  scoreBoard.innerHTML = "";
+  scoreBoard.replaceChildren();
 
   scoresArray.forEach((score, index) => {
-    scoreBoard.innerHTML += `<tr>
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
         <td>${index + 1}</td>
         <td>${score.points}</td>
         <td>${score.percentage}%</td>
         <td>${score.date}</td>
-      </tr>`;
+      `;
+
+    scoreBoard.appendChild(row);
   });
 };
 
@@ -302,14 +328,18 @@ const resetGame = () => {
   currentPoints.textContent = 0;
   inputField.value = "";
   wordDisplay.innerHTML = "";
-  timeCountdown.textContent = `${GAME_TIME}`;
+  timeCountdown.textContent = `${GAME_TIME}s`;
+};
+
+const focusInput = () => {
+  setTimeout(() => inputField.focus(), 0);
 };
 
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
   resetGame();
-  inputField.focus();
+  focusInput();
   startGame();
 });
 
