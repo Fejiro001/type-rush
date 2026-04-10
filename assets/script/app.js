@@ -146,7 +146,7 @@ const shuffle = (array) => {
   return array;
 };
 
-// Display word from shuffled array
+// Display word from shuffled words array
 const displayWord = (word) => {
   wordDisplay.innerHTML = word
     .split("")
@@ -215,9 +215,9 @@ const checkAllMatched = () => {
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
 
   if (allCorrect) {
+    clearInput();
     playSound(correctMusic);
     animate(wordDisplayContainer, "next-word", 250);
-    clearInput();
     incrementPoints();
     showNextWord();
   }
@@ -229,14 +229,11 @@ const playErrorSound = () => {
   if (!canPlayError) return;
 
   canPlayError = false;
-
-  errorMusic.pause();
-  errorMusic.currentTime = 0;
-  errorMusic.play();
+  playSound(errorMusic);
 
   setTimeout(() => {
     canPlayError = true;
-  }, 150);
+  }, 120);
 };
 
 inputField.addEventListener("input", (e) => {
