@@ -50,7 +50,7 @@ input {
 }
 
 /* START SCREEN */
-.start-container {
+.game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,8 +201,7 @@ section {
   background-blend-mode: overlay;
 }
 
-.game-section,
-.scoreboard-container {
+.game-section {
   display: grid;
   place-items: center;
   color: var(--text-muted-color);
@@ -314,11 +313,6 @@ section {
 }
 
 /* SCOREBOARD */
-.scoreboard-container {
-  width: 100%;
-  gap: var(--gap);
-}
-
 .page-description,
 .page-name {
   text-transform: uppercase;
