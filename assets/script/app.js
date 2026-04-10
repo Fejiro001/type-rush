@@ -294,9 +294,21 @@ function showScreen(screenName) {
   document.getElementById(screenName).classList.add("active");
 }
 
+const resetGame = () => {
+  currentIndex = 0;
+  gamePoints = 0;
+  timeLeft = GAME_TIME;
+
+  currentPoints.textContent = 0;
+  inputField.value = "";
+  wordDisplay.innerHTML = "";
+  timeCountdown.textContent = `${GAME_TIME}`;
+};
+
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
+  resetGame();
   inputField.focus();
   startGame();
 });
@@ -309,5 +321,6 @@ scoreboardBtn.forEach((btn) => {
 });
 
 restartBtn.addEventListener("click", () => {
+  resetGame();
   showScreen("start-screen");
 });
