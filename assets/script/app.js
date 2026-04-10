@@ -1,17 +1,18 @@
 "use strict";
 import { Score } from "./Score.js";
 
+const GAME_TIME = 99;
+
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
 const totalWords = document.querySelector(".total-words");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
 const inputField = document.querySelector(".word-input");
-const startScreen = document.getElementById("start-screen");
-const endScreen = document.getElementById("end-screen");
 const startBtn = document.getElementById("start-btn");
 const scoreboardBtn = document.getElementById("scoreboard-btn");
 const restartBtn = document.getElementById("restart-btn");
+const gameStats = document.querySelectorAll(".stat-row");
 
 const wordsArray = [
   "dinosaur",
@@ -124,7 +125,7 @@ gameOverMusic.type = "audio/wav";
 
 let currentIndex = 0;
 let gamePoints = 0;
-let timeLeft = 99;
+let timeLeft = GAME_TIME;
 let timer;
 const scoresArray = [];
 
@@ -236,9 +237,18 @@ const createNewScoreObject = () => {
   });
 
   let userAccuracy = (gamePoints / wordsArray.length) * 100;
+  userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
   return score;
+};
+
+const displayGameStats = (score) => {
+  gameStats[0].children[1].textContent = score.points;
+  gameStats[1].children[1].textContent = `${score.percentage}%`;
+
+  const avgPerWord = (GAME_TIME / gamePoints).toFixed(1);
+  gameStats[2].children[1].textContent = `${avgPerWord}s`;
 };
 
 const endGame = () => {
@@ -253,7 +263,10 @@ const endGame = () => {
 
   // Create and store score
   const scoreObj = createNewScoreObject();
+  displayGameStats(scoreObj);
   scoresArray.push(scoreObj);
+
+  showScreen("end-screen");
 };
 
 // Function to switch screens
@@ -263,7 +276,9 @@ function showScreen(screenName) {
 }
 
 startBtn.addEventListener("click", () => {
+  startGameMusic.play();
   showScreen("typing-screen");
+  inputField.focus();
   startGame();
 });
 
