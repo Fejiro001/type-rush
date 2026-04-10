@@ -269,7 +269,8 @@ inputField.addEventListener("input", (e) => {
 
 // Start game
 const startGame = () => {
-  playSound(backgroundMusic);
+  backgroundMusic.currentTime = 0;
+  backgroundMusic.play();
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
   shuffle(wordsArray);
@@ -284,7 +285,7 @@ const createNewScoreObject = () => {
     year: "numeric"
   });
 
-  let userAccuracy = (gamePoints / currentIndex) * 100;
+  let userAccuracy = currentIndex === 0 ? 0 : (gamePoints / currentIndex) * 100;
   userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
@@ -300,10 +301,9 @@ const displayGameStats = (score) => {
 };
 
 const endGame = () => {
-  // Stop timer
   clearInterval(timer);
+  inputField.disabled = true;
 
-  // Stop music
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
 
@@ -340,6 +340,9 @@ function showScreen(screenName) {
 }
 
 const resetGame = () => {
+  inputField.disabled = false;
+  clearInterval(timer);
+
   currentIndex = 0;
   gamePoints = 0;
   timeLeft = GAME_TIME;
