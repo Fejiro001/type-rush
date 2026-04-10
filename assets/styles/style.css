@@ -110,6 +110,7 @@ input {
   justify-content: space-between;
   align-items: center;
   gap: var(--gap);
+  margin-top: 2rem;
 }
 
 .btn-yellow,
@@ -147,7 +148,7 @@ input {
   align-items: start;
   justify-content: center;
   gap: 2rem;
-  
+
   p,
   span {
     font-family: var(--headings-font);
@@ -165,25 +166,30 @@ input {
   line-height: 1.6rem;
 }
 
-/* --- 6. END PAGE: HIGH SCORE BOX (CENTERED) --- */
 .high-score-box {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--secondary-color);
-  padding: 30px 50px;
   width: 100%;
-  max-width: 550px;
-  background: rgba(0, 0, 0, 0.85);
-  margin: 0 auto 30px auto; /* auto centers the box itself */
-  box-shadow: var(--secondary-box-shadow);
+  max-width: 52rem;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-dark-color);
+  padding: var(--gap);
+}
+
+.game-stats {
+  margin-top: var(--card-padding);
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
-  padding: 18px 0;
-  font-size: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+  font-size: var(--paragraph-size);
+  text-transform: uppercase;
+  font-family: var(--headings-font);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-value {
+  color: var(--secondary-color);
 }
 
 /* TYPING PAGE */
@@ -312,16 +318,6 @@ section {
 .scoreboard-container {
   width: 100%;
   gap: var(--gap);
-}
-
-.page-name {
-  text-transform: uppercase;
-  color: var(--primary-color);
-  font-size: var(--heading-one-size);
-
-  span {
-    color: var(--secondary-color);
-  }
 }
 
 .page-description,
