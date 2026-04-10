@@ -7,6 +7,10 @@ const totalWords = document.querySelector(".total-words");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
 const inputField = document.querySelector(".word-input");
+const startScreen = document.getElementById("start-screen");
+const endScreen = document.getElementById("end-screen");
+const startBtn = document.getElementById("start-btn");
+const restartBtn = document.getElementById("restart-btn");
 
 const wordsArray = [
   "dinosaur",
@@ -253,11 +257,6 @@ const endGame = () => {
   const scoreObj = createNewScoreObject();
   scoresArray.push(scoreObj);
 };
-
-const startScreen = document.getElementById('start-screen');
-const endScreen = document.getElementById('end-screen');
-const startBtn = document.getElementById('start-btn');
-const restartBtn = document.getElementById('restart-btn');
 
 // Function to switch screens
 function showScreen(screenId) {

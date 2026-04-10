@@ -256,36 +256,6 @@ td:nth-child(4) {
     padding: 1rem;
   }
 }
-* {
-  box-sizing: border-box;
-}
-
-/* --- 2. THE BACKGROUND & NEON FLOOR --- */
-body {
-  background-color: var(--background-dark);
-  color: white;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  min-height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
-/* This creates the tilted grid floor from your screenshot */
-body::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: 
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 50px 50px;
-  transform: perspective(500px) rotateX(60deg);
-  transform-origin: center bottom;
-  opacity: 0.6;
-}
 
 /* --- 3. MAIN CONTAINER (FORCING CENTER ALIGNMENT) --- */
 #app-container, section {
