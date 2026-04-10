@@ -10,6 +10,7 @@ const inputField = document.querySelector(".word-input");
 const startScreen = document.getElementById("start-screen");
 const endScreen = document.getElementById("end-screen");
 const startBtn = document.getElementById("start-btn");
+const scoreboardBtn = document.getElementById("scoreboard-btn");
 const restartBtn = document.getElementById("restart-btn");
 
 const wordsArray = [
@@ -121,7 +122,6 @@ errorMusic.type = "audio/flac";
 const gameOverMusic = new Audio("./assets/media/audio/game-over.wav");
 gameOverMusic.type = "audio/wav";
 
-
 let currentIndex = 0;
 let gamePoints = 0;
 let timeLeft = 99;
@@ -228,8 +228,6 @@ const startGame = () => {
   startCountdown();
 };
 
-startGame();
-
 const createNewScoreObject = () => {
   const date = new Date().toLocaleDateString("en-ca", {
     day: "numeric",
@@ -246,11 +244,11 @@ const createNewScoreObject = () => {
 const endGame = () => {
   // Stop timer
   clearInterval(timer);
-  
+
   // Stop music
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
-  
+
   gameOverMusic.play();
 
   // Create and store score
@@ -259,21 +257,20 @@ const endGame = () => {
 };
 
 // Function to switch screens
-function showScreen(screenId) {
-    // Hide all screens
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    // Show requested screen
-    document.getElementById(screenId).classList.add('active');
+function showScreen(screenName) {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  document.getElementById(screenName).classList.add("active");
 }
 
-// Link Start Button
-startBtn.addEventListener('click', () => {
-    if (typeof startNewGame === "function") {
-        startNewGame();
-    }
-    showScreen('typing-screen'); 
+startBtn.addEventListener("click", () => {
+  showScreen("typing-screen");
+  startGame();
 });
 
-restartBtn.addEventListener('click', () => {
-    showScreen('start-screen');
+scoreboardBtn.addEventListener("click", () => {
+  showScreen("scoreboard-screen");
+});
+
+restartBtn.addEventListener("click", () => {
+  showScreen("start-screen");
 });
