@@ -70,7 +70,9 @@
           </form>
         </div>
         <div id="end-screen" class="screen container game-container">
-          <h1 class="pink main-title">Game<span class="cyan">over</span></h1>
+          <h1 class="pink main-title">
+            Game<span class="cyan"><br />over</span>
+          </h1>
           <p class="subtitle">Try again</p>
           <div class="high-score-box">
             <div class="high-score-text">
@@ -99,19 +101,23 @@
           </div>
         </div>
         <div id="scoreboard-screen" class="screen container typing-container">
-          <h1 class="main-title pink">Score<span class="cyan">board</span></h1>
+          <h1 class="main-title pink">
+            Score<span class="cyan"><br />board</span>
+          </h1>
           <p class="page-description">Your current scores</p>
-          <table class="score-table">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Points</th>
-                <th>Accuracy</th>
-                <th>Date Played</th>
-              </tr>
-            </thead>
-            <tbody class="score-table-body"></tbody>
-          </table>
+          <div class="scoreboard-wrapper">
+            <table class="score-table">
+              <thead>
+                <tr>
+                  <th>S/N</th>
+                  <th>Points</th>
+                  <th>Accuracy</th>
+                  <th>Date Played</th>
+                </tr>
+              </thead>
+              <tbody class="score-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
