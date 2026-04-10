@@ -44,6 +44,10 @@ input {
   font-family: var(--paragraph-font);
 }
 
+body {
+  overflow: hidden;
+}
+
 .container {
   max-width: min(100% - 30px, var(--max-width));
   margin-inline: auto;
@@ -160,6 +164,10 @@ input {
 .instruction-text {
   justify-content: space-between;
   margin-top: 2rem;
+}
+
+.instruction-text p {
+  animation: blink 2s steps(2, start) infinite;
 }
 
 .arrows {
@@ -372,7 +380,13 @@ td:nth-child(4) {
   display: flex;
 }
 
-/* Mobile */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Tablet & Mobile */
 @media (max-width: 767px) {
   :root {
     --section-padding: 8rem;
