@@ -1,7 +1,7 @@
 "use strict";
 import { Score } from "./Score.js";
 
-const GAME_TIME = 10;
+const GAME_TIME = 99;
 
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
@@ -277,17 +277,16 @@ const endGame = () => {
 };
 
 const populateScoreBoard = () => {
-  console.log(scoresArray);
-  if (scoresArray) {
-    scoresArray.forEach((score, index) => {
-      scoreBoard.innerHTML = `<tr>
+  scoreBoard.innerHTML = "";
+
+  scoresArray.forEach((score, index) => {
+    scoreBoard.innerHTML += `<tr>
         <td>${index + 1}</td>
         <td>${score.points}</td>
         <td>${score.percentage}%</td>
         <td>${score.date}</td>
       </tr>`;
-    });
-  }
+  });
 };
 
 function showScreen(screenName) {
