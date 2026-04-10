@@ -3,6 +3,7 @@ import { Score } from "./Score.js";
 
 const GAME_TIME = 99;
 
+const wordDisplayContainer = document.querySelector(".word-display");
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
 const totalWords = document.querySelector(".total-words");
@@ -244,6 +245,10 @@ inputField.addEventListener("input", (e) => {
       playErrorSound();
       letter.classList.add("wrong");
       letter.classList.remove("correct");
+      wordDisplayContainer.classList.add("input-error");
+      setTimeout(() => {
+        wordDisplayContainer.classList.remove("input-error");
+      }, 300);
     }
   });
 

@@ -317,6 +317,10 @@ section {
   box-shadow: var(--primary-box-shadow);
 }
 
+.input-error {
+  animation: error 0.3s ease;
+}
+
 .word-display p {
   font-family: var(--headings-font);
   font-size: var(--heading-one-size);
@@ -412,6 +416,27 @@ td:nth-child(4) {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes error {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
