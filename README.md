@@ -1,5 +1,7 @@
 # TypeRush
 
+![TypeRush Game](./assets/media/design/game.png)
+
 ## Collaborators:
 
 - Oghenefejiro Stephanie Abere
