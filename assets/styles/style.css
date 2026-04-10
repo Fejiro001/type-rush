@@ -293,6 +293,7 @@ section {
 .word-form input {
   padding: var(--card-padding);
   text-align: center;
+  font-size: var(--heading-two-size);
   color: #ffffcc;
 }
 

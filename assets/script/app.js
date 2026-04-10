@@ -6,6 +6,7 @@ const GAME_TIME = 99;
 const wordDisplay = document.querySelector(".displayed-word");
 const currentWord = document.querySelector(".current-word");
 const totalWords = document.querySelector(".total-words");
+const startWords = document.querySelector(".start-words");
 const totalTime = document.querySelector(".total-time");
 const currentPoints = document.querySelector(".points-value");
 const timeCountdown = document.querySelector(".time-value");
@@ -131,7 +132,7 @@ let timeLeft = GAME_TIME;
 let timer;
 const scoresArray = [];
 
-totalWords.textContent = wordsArray.length;
+totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
 
 // Shuffle function
