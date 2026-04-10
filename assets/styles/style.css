@@ -361,6 +361,14 @@ td:nth-child(4) {
   color: var(--primary-color);
 }
 
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: flex;
+}
+
 /* Mobile */
 @media (max-width: 767px) {
   :root {
