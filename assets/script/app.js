@@ -16,7 +16,7 @@ const inputField = document.querySelector(".word-input");
 const startBtn = document.getElementById("start-btn");
 const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
 const restartBtn = document.getElementById("restart-btn");
-const returnBtn = document.getElementById("return-btn");
+const returnBtn = document.querySelectorAll("#return-btn");
 const gameStats = document.querySelectorAll(".stat-row");
 const scoreBoard = document.querySelector(".score-table-body");
 
@@ -379,7 +379,9 @@ restartBtn.addEventListener("click", () => {
   startGame();
 });
 
-returnBtn.addEventListener("click", () => {
-  resetGame();
-  showScreen("start-screen");
+returnBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    resetGame();
+    showScreen("start-screen");
+  });
 });
