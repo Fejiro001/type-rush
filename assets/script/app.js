@@ -385,3 +385,7 @@ returnBtn.forEach((btn) => {
     showScreen("start-screen");
   });
 });
+
+function storeScores(scores) {
+  localStorage.setItem("GameScore", JSON.stringify(scores));
+}
