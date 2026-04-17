@@ -265,7 +265,7 @@ section {
 
 .typing-container {
   flex-direction: column;
-  max-width: 90rem;
+  max-width: 100rem;
 }
 
 .typing-stats li {

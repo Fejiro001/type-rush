@@ -279,10 +279,12 @@ const startGame = () => {
 };
 
 const createNewScoreObject = () => {
-  const date = new Date().toLocaleDateString("en-ca", {
+  const date = new Date().toLocaleString("en-ca", {
     day: "numeric",
-    month: "long",
-    year: "numeric"
+    month: "short",
+    year: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
   });
 
   let percentage = Number(((gamePoints / wordsArray.length) * 100).toFixed(2));
