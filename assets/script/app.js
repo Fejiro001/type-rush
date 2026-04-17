@@ -133,7 +133,7 @@ let currentIndex = 0;
 let gamePoints = 0;
 let timeLeft = GAME_TIME;
 let timer;
-const scoresArray = [];
+let scoresArray;
 
 totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
@@ -312,7 +312,12 @@ const endGame = () => {
   // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
+  scoresArray = loadScores();
   scoresArray.push(scoreObj);
+  // Call Roop's sort function
+
+  // Save scores
+  storeScores(scoresArray);
 
   showScreen("end-screen");
 };
@@ -386,6 +391,7 @@ returnBtn.forEach((btn) => {
   });
 });
 
+// Roop
 function storeScores(scores) {
   localStorage.setItem("GameScore", JSON.stringify(scores));
 }
