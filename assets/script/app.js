@@ -312,8 +312,10 @@ const endGame = () => {
   // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
+
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
+  
   // Call Roop's sort function
 
   // Save scores
