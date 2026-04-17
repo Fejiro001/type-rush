@@ -330,7 +330,6 @@ const endGame = () => {
   // Save scores
   storeScores(scoresArray);
 
-(Add sorting and splicing logic)
   showScreen("end-screen");
 };
 
