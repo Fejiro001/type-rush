@@ -306,13 +306,18 @@ const endGame = () => {
 
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
-
   gameOverMusic.play();
 
-  // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
+  
+  // Add the new score to the array
   scoresArray.push(scoreObj);
+
+  sortScores();          
+  limitToTopScores();     
+
+  localStorage.setItem('typeRushScores', JSON.stringify(scoresArray));
 
   showScreen("end-screen");
 };
