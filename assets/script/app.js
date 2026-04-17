@@ -310,12 +310,17 @@ const endGame = () => {
 
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
-
   gameOverMusic.play();
 
-  // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
+  scoresArray.push(scoreObj);
+
+ 
+  sortScores();          
+  limitToTopScores();     
+
+  localStorage.setItem('typeRushScores', JSON.stringify(scoresArray));
 
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
@@ -368,6 +373,14 @@ const focusInput = () => {
   setTimeout(() => inputField.focus(), 0);
 };
 
+function sortScores() {
+  scoresArray.sort((a, b) => b.points - a.points);
+}
+function limitToTopScores() {
+  if (scoresArray.length > 9) {
+    scoresArray.splice(9);
+  }
+}
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
