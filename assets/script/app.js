@@ -389,3 +389,8 @@ returnBtn.forEach((btn) => {
 function storeScores(scores) {
   localStorage.setItem("GameScore", JSON.stringify(scores));
 }
+
+function loadScores() {
+  const scores = localStorage.getItem("GameScore");
+  return scores ? JSON.parse(scores) : [];
+}
