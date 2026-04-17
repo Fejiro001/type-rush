@@ -1,7 +1,7 @@
 "use strict";
 import { Score } from "./Score.js";
 
-const GAME_TIME = 10;
+const GAME_TIME = 15;
 
 const wordDisplayContainer = document.querySelector(".word-display");
 const wordDisplay = document.querySelector(".displayed-word");
@@ -285,10 +285,9 @@ const createNewScoreObject = () => {
     year: "numeric"
   });
 
-  let userAccuracy = currentIndex === 0 ? 0 : (gamePoints / currentIndex) * 100;
-  userAccuracy = userAccuracy.toPrecision(2);
+  let percentage = Number(((gamePoints / wordsArray.length) * 100).toFixed(2));
 
-  const score = new Score(date, gamePoints, userAccuracy);
+  const score = new Score(date, gamePoints, percentage);
   return {
     date: score.date,
     points: score.points,
@@ -315,14 +314,10 @@ const endGame = () => {
   // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
-  scoresArray.push(scoreObj);
 
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
-
-  // Call Roop's sort function
-  sortScores();
-  limitToTopScores();
+  scoresArray = sortScores(scoresArray);
 
   // Save scores
   storeScores(scoresArray);
@@ -370,14 +365,18 @@ const focusInput = () => {
   setTimeout(() => inputField.focus(), 0);
 };
 
-function sortScores() {
-  scoresArray.sort((a, b) => b.points - a.points);
+function sortScores(scores) {
+  scores.sort((a, b) => b.points - a.points);
+  return limitToTopScores(scores);
 }
-function limitToTopScores() {
-  if (scoresArray.length > 9) {
-    scoresArray.splice(9);
+
+function limitToTopScores(scores) {
+  if (scores.length > 10) {
+    scores.splice(10);
   }
+  return scores;
 }
+
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
@@ -409,7 +408,6 @@ returnBtn.forEach((btn) => {
   });
 });
 
-// Roop
 function storeScores(scores) {
   localStorage.setItem("GameScore", JSON.stringify(scores));
 }
