@@ -310,20 +310,11 @@ const endGame = () => {
 
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
-
   gameOverMusic.play();
 
-  // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
-
-  scoresArray = loadScores();
   scoresArray.push(scoreObj);
-
-  // Call Roop's sort function
-
-  // Save scores
-  storeScores(scoresArray);
 
   showScreen("end-screen");
 };
