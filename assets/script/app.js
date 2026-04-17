@@ -368,6 +368,14 @@ const focusInput = () => {
   setTimeout(() => inputField.focus(), 0);
 };
 
+function sortScores() {
+  scoresArray.sort((a, b) => b.points - a.points);
+}
+function limitToTopScores() {
+  if (scoresArray.length > 9) {
+    scoresArray.splice(9);
+  }
+}
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
