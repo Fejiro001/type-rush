@@ -312,20 +312,17 @@ const endGame = () => {
   backgroundMusic.currentTime = 0;
   gameOverMusic.play();
 
+  // Create and store score
   const scoreObj = createNewScoreObject();
   displayGameStats(scoreObj);
   scoresArray.push(scoreObj);
-
- 
-  sortScores();          
-  limitToTopScores();     
-
-  localStorage.setItem('typeRushScores', JSON.stringify(scoresArray));
 
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
 
   // Call Roop's sort function
+  sortScores();
+  limitToTopScores();
 
   // Save scores
   storeScores(scoresArray);
