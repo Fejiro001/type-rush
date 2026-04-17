@@ -1,7 +1,7 @@
 "use strict";
 import { Score } from "./Score.js";
 
-const GAME_TIME = 10;
+const GAME_TIME = 99;
 
 const wordDisplayContainer = document.querySelector(".word-display");
 const wordDisplay = document.querySelector(".displayed-word");
@@ -19,6 +19,7 @@ const restartBtn = document.querySelectorAll(".restart-btn");
 const returnBtn = document.querySelectorAll("#return-btn");
 const gameStats = document.querySelectorAll(".stat-row");
 const scoreBoard = document.querySelector(".score-table-body");
+const progressBar = document.getElementById("progress-bar");
 
 const wordsArray = [
   "dinosaur",
@@ -129,14 +130,18 @@ errorMusic.type = "audio/flac";
 const gameOverMusic = new Audio("./assets/media/audio/game-over.wav");
 gameOverMusic.type = "audio/wav";
 
+let shuffledWords = [];
 let currentIndex = 0;
 let gamePoints = 0;
 let timeLeft = GAME_TIME;
 let timer;
 let scoresArray = loadScores();
+let letters = [];
 
 totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
+progressBar.max = GAME_TIME;
+progressBar.value = GAME_TIME;
 
 // Prevent copy and paste
 wordDisplay.addEventListener("copy", (e) => e.preventDefault());
@@ -158,17 +163,19 @@ const displayWord = (word) => {
     .split("")
     .map((letter) => `<span>${letter}</span>`)
     .join("");
+
+  letters = document.querySelectorAll(".displayed-word span");
 };
 
 const showNextWord = () => {
-  if (currentIndex >= wordsArray.length) {
+  if (currentIndex >= shuffledWords.length) {
     endGame();
     return;
   }
 
+  displayWord(shuffledWords[currentIndex]);
   currentIndex++;
   currentWord.textContent = currentIndex;
-  displayWord(wordsArray[currentIndex - 1]);
 };
 
 const incrementPoints = () => {
@@ -179,6 +186,7 @@ const incrementPoints = () => {
 // Timer countdown when game starts
 const displayTimeLeft = () => {
   timeCountdown.textContent = `${timeLeft}s`;
+  progressBar.value = timeLeft;
 };
 
 const startCountdown = () => {
@@ -215,7 +223,6 @@ const animate = (element, className, duration) => {
 };
 
 const checkAllMatched = () => {
-  const letters = document.querySelectorAll(".displayed-word span");
   const typed = inputField.value.trim();
 
   const allCorrect = typed.length === letters.length && Array.from(letters).every((letter) => letter.classList.contains("correct"));
@@ -247,7 +254,6 @@ form.addEventListener("submit", (e) => {
 });
 
 inputField.addEventListener("input", (e) => {
-  const letters = document.querySelectorAll(".displayed-word span");
   const typed = e.target.value.trim().split("");
 
   letters.forEach((letter, index) => {
@@ -273,22 +279,23 @@ const startGame = () => {
   backgroundMusic.play();
   backgroundMusic.volume = 0.5;
   backgroundMusic.loop = true;
-  shuffle(wordsArray);
+  shuffledWords = shuffle([...wordsArray]);
   showNextWord();
   startCountdown();
 };
 
-const createNewScoreObject = () => {
-  const date = new Date().toLocaleDateString("en-ca", {
+const createScore = () => {
+  const date = new Date().toLocaleString("en-ca", {
     day: "numeric",
-    month: "long",
-    year: "numeric"
+    month: "short",
+    year: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
   });
 
-  let userAccuracy = currentIndex === 0 ? 0 : (gamePoints / currentIndex) * 100;
-  userAccuracy = userAccuracy.toPrecision(2);
+  const percentage = Number(((gamePoints / shuffledWords.length) * 100).toFixed(2));
 
-  const score = new Score(date, gamePoints, userAccuracy);
+  const score = new Score(date, gamePoints, percentage);
   return {
     date: score.date,
     points: score.points,
@@ -312,20 +319,13 @@ const endGame = () => {
   backgroundMusic.currentTime = 0;
   gameOverMusic.play();
 
-  const scoreObj = createNewScoreObject();
+  // Create and store score
+  const scoreObj = createScore();
   displayGameStats(scoreObj);
-  scoresArray.push(scoreObj);
-
- 
-  sortScores();          
-  limitToTopScores();     
-
-  localStorage.setItem('typeRushScores', JSON.stringify(scoresArray));
 
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
-
-  // Call Roop's sort function
+  scoresArray = sortScores(scoresArray);
 
   // Save scores
   storeScores(scoresArray);
@@ -359,6 +359,9 @@ const resetGame = () => {
   inputField.disabled = false;
   clearInterval(timer);
 
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+
   currentIndex = 0;
   gamePoints = 0;
   timeLeft = GAME_TIME;
@@ -367,20 +370,25 @@ const resetGame = () => {
   inputField.value = "";
   wordDisplay.innerHTML = "";
   timeCountdown.textContent = `${GAME_TIME}s`;
+  progressBar.value = GAME_TIME;
 };
 
 const focusInput = () => {
   setTimeout(() => inputField.focus(), 0);
 };
 
-function sortScores() {
-  scoresArray.sort((a, b) => b.points - a.points);
+function sortScores(scores) {
+  scores.sort((a, b) => b.points - a.points);
+  return limitToTopScores(scores);
 }
-function limitToTopScores() {
-  if (scoresArray.length > 9) {
-    scoresArray.splice(9);
+
+function limitToTopScores(scores) {
+  if (scores.length > 10) {
+    scores.splice(10);
   }
+  return scores;
 }
+
 startBtn.addEventListener("click", () => {
   startGameMusic.play();
   showScreen("typing-screen");
@@ -412,7 +420,6 @@ returnBtn.forEach((btn) => {
   });
 });
 
-// Roop
 function storeScores(scores) {
   localStorage.setItem("GameScore", JSON.stringify(scores));
 }

@@ -114,16 +114,16 @@ const startCountdown = () => {
 };
 ```
 
-### Accuracy Calculation
+### Completion % Calculation
 
-Accuracy is calculated based on correctly typed words and displayed as part of the final statistics.
+Completion % is calculated based on correctly typed words divided by total words and displayed as part of the final statistics.
 
 ### Performance Metrics
 
 Users receive:
 
 - Total points
-- Accuracy percentage
+- Completion percentage
 - Average time per word
 
 ### Audio Integration

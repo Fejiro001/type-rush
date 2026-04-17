@@ -3,7 +3,7 @@
 :root {
   --max-width: 1280px;
   --card-padding: 2rem;
-  --section-padding: 10rem;
+  --section-padding: 8rem;
   --gap: 4rem;
 
   --headings-font: "Press Start 2P", sans-serif;
@@ -49,12 +49,20 @@ input {
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: min(100% - 30px, var(--max-width));
   margin-inline: auto;
+}
+
+section {
+  min-height: 100dvh;
+  height: 100%;
+  padding: var(--section-padding) 0;
+  background: rgba(0, 0, 0, 0.3) url(../media/images/background.jpg) no-repeat center/cover;
+  background-blend-mode: overlay;
 }
 
 /* START SCREEN */
@@ -212,14 +220,6 @@ body {
   color: var(--secondary-color);
 }
 
-section {
-  min-height: 100dvh;
-  height: 100%;
-  padding: var(--section-padding) 0;
-  background: rgba(0, 0, 0, 0.3) url(../media/images/background.jpg) no-repeat center/cover;
-  background-blend-mode: overlay;
-}
-
 /* TYPING SCREEN */
 #return-btn {
   align-self: flex-start;
@@ -265,7 +265,7 @@ section {
 
 .typing-container {
   flex-direction: column;
-  max-width: 90rem;
+  max-width: 100rem;
 }
 
 .typing-stats li {
@@ -420,6 +420,28 @@ td:nth-child(4) {
 
 .screen.active {
   display: flex;
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.5rem;
+  width: 100%;
+}
+
+progress::-webkit-progress-bar {
+  background-color: transparent;
+  border-radius: 0.25rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--secondary-color);
+  border-radius: 0.25rem;
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--secondary-color);
+  border-radius: 0.25rem;
 }
 
 @keyframes blink {
