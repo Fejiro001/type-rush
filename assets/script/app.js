@@ -316,6 +316,21 @@ const endGame = () => {
   displayGameStats(scoreObj);
   scoresArray.push(scoreObj);
 
+ 
+  sortScores();          
+  limitToTopScores();     
+
+  localStorage.setItem('typeRushScores', JSON.stringify(scoresArray));
+
+  scoresArray = loadScores();
+  scoresArray.push(scoreObj);
+
+  // Call Roop's sort function
+
+  // Save scores
+  storeScores(scoresArray);
+
+(Add sorting and splicing logic)
   showScreen("end-screen");
 };
 
