@@ -1,7 +1,7 @@
 "use strict";
 import { Score } from "./Score.js";
 
-const GAME_TIME = 99;
+const GAME_TIME = 10;
 
 const wordDisplayContainer = document.querySelector(".word-display");
 const wordDisplay = document.querySelector(".displayed-word");
@@ -15,7 +15,7 @@ const form = document.querySelector(".word-form");
 const inputField = document.querySelector(".word-input");
 const startBtn = document.getElementById("start-btn");
 const scoreboardBtn = document.querySelectorAll(".scoreboard-btn");
-const restartBtn = document.getElementById("restart-btn");
+const restartBtn = document.querySelectorAll(".restart-btn");
 const returnBtn = document.querySelectorAll("#return-btn");
 const gameStats = document.querySelectorAll(".stat-row");
 const scoreBoard = document.querySelector(".score-table-body");
@@ -133,7 +133,7 @@ let currentIndex = 0;
 let gamePoints = 0;
 let timeLeft = GAME_TIME;
 let timer;
-let scoresArray;
+let scoresArray = loadScores();
 
 totalWords.textContent = startWords.textContent = wordsArray.length;
 totalTime.textContent = GAME_TIME;
@@ -289,7 +289,11 @@ const createNewScoreObject = () => {
   userAccuracy = userAccuracy.toPrecision(2);
 
   const score = new Score(date, gamePoints, userAccuracy);
-  return score;
+  return {
+    date: score.date,
+    points: score.points,
+    percentage: score.percentage
+  };
 };
 
 const displayGameStats = (score) => {
@@ -315,7 +319,7 @@ const endGame = () => {
 
   scoresArray = loadScores();
   scoresArray.push(scoreObj);
-  
+
   // Call Roop's sort function
 
   // Save scores
@@ -379,11 +383,13 @@ scoreboardBtn.forEach((btn) => {
   });
 });
 
-restartBtn.addEventListener("click", () => {
-  resetGame();
-  showScreen("typing-screen");
-  focusInput();
-  startGame();
+restartBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    resetGame();
+    showScreen("typing-screen");
+    focusInput();
+    startGame();
+  });
 });
 
 returnBtn.forEach((btn) => {
